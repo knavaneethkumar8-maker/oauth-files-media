@@ -32,12 +32,16 @@ function router () {
   console.log(path);
 
   if(path === '/dashboard') {
+    console.log('dashboard');
     renderDashboard();
   } else if(path === '/dashboard/repos') {
+    console.log('repos');
     renderRepos();
   } else if(path === '/profile') {
+    console.log('dashboard');
     renderProfile();
   } else if (path === '/' || path === '/index.html') {
+    console.log('home');
     renderHome();
   }
    else {
