@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  },
+  "name": "oauth-files-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "frontendServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node frontendServer.js",
+    "dev" : "nodemon frontendServer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knavaneethkumar8-maker/oauth-files-media.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/knavaneethkumar8-maker/oauth-files-media/issues"
+  },
+  "homepage": "https://github.com/knavaneethkumar8-maker/oauth-files-media#readme"
+}

@@ -7,8 +7,36 @@
   <link rel="stylesheet" href="styles/general.css">
 </head>
 <body>
-  <h1>
-    Online Authentication
-  </h1>
+  <header>
+    <nav>
+      <button href="/profile" class="js-profile-button">
+        Profile
+      </button>
+      <button href="/dashboard" class="js-dashboard">
+        Dashboard
+      </button>
+      <button href="/home" class="js-home">
+        Home
+      </button>
+    </nav>
+  </header>
+
+  <main class="js-app">
+    <section class="login">
+      <h1>
+        Online Authentication
+      </h1>
+      <button class="backend-button js-fetch-button">
+        Login with Google
+      </button>
+      <button class="js-dashboard">
+        Go to Dashboard
+      </button>
+    </section>
+
+  </main>
+
+  
+  <script src="scripts/oauth.js" type="module"></script>
 </body>
 </html>
