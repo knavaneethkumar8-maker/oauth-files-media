@@ -37,8 +37,11 @@ function router () {
   } else if(path === '/dashboard/repos') {
     console.log('repos');
     renderRepos();
+  } else if(path === '/dashboard/repos/pulls') {
+    console.log('pulls');
+    renderPulls();
   } else if(path === '/profile') {
-    console.log('dashboard');
+    console.log('profile');
     renderProfile();
   } else if (path === '/' || path === '/index.html') {
     console.log('home');
@@ -85,7 +88,22 @@ function renderProfile() {
 function renderRepos() {
   app.innerHTML = `
   <h1>Repos List</h1>
-  `
+  <button class="js-repos-pulls">
+    Pull requests
+  </button>
+  `;
+  const pullButton = document.querySelector('.js-repos-pulls');
+  pullButton.addEventListener('click', async () => {
+    history.pushState(null, "", '/dashboard/repos/pulls');
+    router();
+  });
+
+}
+
+function renderPulls() {
+  app.innerHTML = `
+  <h1>Pull requests</h1>
+  `;
 }
 
 
