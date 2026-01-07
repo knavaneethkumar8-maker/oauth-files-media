@@ -33,6 +33,9 @@ export function renderDashboard() {
 
 async function renderUserProfile () {
   const userId = matched.pathname.groups.userId;
+  body.innerHTML = `
+  <p>Loading..</p>
+  `
   console.log(userId + " this is user id");
   if(userId) {
     console.log(userId);
