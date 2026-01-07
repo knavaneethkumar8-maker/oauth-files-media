@@ -1,3 +1,6 @@
+import { route, matched, routeExists } from "./urlParams.js";
+
+const body = document.querySelector('.js-body');
 const app = document.querySelector('.js-app');
 console.log(app);
 router();
@@ -6,6 +9,7 @@ console.log(app);
 const dashBoardButton = document.querySelector('.js-dashboard');
 const profileButton = document.querySelector('.js-profile-button');
 const homeButton = document.querySelector('.js-home');
+
 
 
 export function renderDashboard() {
@@ -27,46 +31,88 @@ export function renderDashboard() {
   });
 }
 
-function router () {
+async function renderUserProfile () {
+  const userId = matched.pathname.groups.userId;
+  console.log(userId + " this is user id");
+  if(userId) {
+    console.log(userId);
+    const response = await fetch(`http://localhost:3500/${userId}/profile`, {
+      headers : {
+        "Content-Type" : "text/html",
+        "Accept" : "text/html"
+      },
+      credentials : 'include',
+      method : "GET"
+    });
+    const html = await response.text();
+    body.innerHTML = html;
+
+    const  backToDashboard = document.querySelector('.js-back-dashboard');
+
+    backToDashboard.addEventListener('click', async () => {
+      window.location.pathname = '/dashboard';
+    });
+
+    
+  } else {
+    renderProfile();
+  }
+}
+
+
+async function router( ) {
   const path = window.location.pathname;
+  const url = new URL(location.href);
+  const userId = url.searchParams.get('userId');
   console.log(path);
 
-  if(path === '/dashboard') {
-    console.log('dashboard');
-    renderDashboard();
-  } else if(path === '/dashboard/repos') {
-    console.log('repos');
-    renderRepos();
-  } else if(path === '/dashboard/repos/pulls') {
-    console.log('pulls');
-    renderPulls();
-  } else if(path === '/profile') {
-    console.log('profile');
-    renderProfile();
-  } else if (path === '/' || path === '/index.html') {
-    console.log('home');
-    renderHome();
+  route('/:userId/profile', renderUserProfile);
+  if(routeExists){
+    console.log(matched.pathname.groups);
+    return;
   }
-   else {
-    renderNotFound();
-  }
+
+  route('/dashboard', renderDashboard);
+  if(routeExists) return;
+
+  route('/dashboard/repos', renderRepos);
+  if(routeExists) return;
+
+  route('/dashboard/repos/pulls', renderPulls);
+  if(routeExists) return;
+
+  route('/profile', renderProfile);
+  if(routeExists) return;
+
+  route('/index.html', renderHome);
+  if(routeExists) return;
+
+  route('/index', renderHome);
+  if(routeExists) return;
+
+  route('/', renderHome);
+  if(routeExists) return;
+
+  renderNotFound();
 }
 
 window.addEventListener('popstate', router);
 
 
-dashBoardButton.addEventListener('click', async () => {
-  history.pushState(null, "", '/dashboard');
+dashBoardButton.addEventListener('click', async (event) => {
+  history.pushState({page : "Dashboard"}, "Dashboard", '/dashboard');
+  document.title = 'Dashboard';
+  console.log(event.page);
   router();
 });
 
 profileButton.addEventListener('click', async () => {
-  history.pushState(null, "", '/profile');
+  history.pushState(null, "Profile", '/profile');
   router();
 });
 
 homeButton.addEventListener('click', async () => {
-  history.pushState(null, "", '/');
+  history.pushState(null, "Home", '/');
   router();
 });
 
@@ -123,5 +169,3 @@ function renderHome() {
     window.location.href = 'http://localhost:3500/auth/google';
   });
 }
-
-
