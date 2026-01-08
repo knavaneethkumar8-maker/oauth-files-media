@@ -2,14 +2,12 @@ import { route, matched, routeExists, setExistsToZero } from "./urlParams.js";
 
 const body = document.querySelector('.js-body');
 const app = document.querySelector('.js-app');
-console.log(app);
+const header = document.querySelector('.js-header');
+
 router();
-console.log(app);
-
-const dashBoardButton = document.querySelector('.js-dashboard');
-const profileButton = document.querySelector('.js-profile-button');
-const homeButton = document.querySelector('.js-home');
-
+if(header) {
+  renderHeader();
+}
 
 export function renderDashboard() {
   app.innerHTML = `
@@ -61,38 +59,59 @@ async function renderUserProfile () {
   }
 }
 
-function renderIndexPage() {
-  body.innerHTML = `
-  <header>
-    <nav>
-      <button href="/profile" class="js-profile-button">
-        Profile
-      </button>
-      <button href="/dashboard" class="js-dashboard">
-        Dashboard
-      </button>
-      <button href="/home" class="js-home">
-        Home
-      </button>
-    </nav>
-  </header>
-
-  <main class="js-app">
-    <section class="login">
-      <h1>
-        Online Authentication
-      </h1>
-      <button class="backend-button js-fetch-button">
-        Login with Google
-      </button>
-    </section>
-
-  </main>
+function renderHeader() {
+  header.innerHTML = `
+  <nav>
+    <button href="/profile" class="js-profile-button">
+      Profile
+    </button>
+    <button href="/dashboard" class="js-dashboard">
+      Dashboard
+    </button>
+    <button href="/home" class="js-home">
+      Home
+    </button>
+  </nav>
   `;
 
   const dashBoardButton = document.querySelector('.js-dashboard');
   const profileButton = document.querySelector('.js-profile-button');
   const homeButton = document.querySelector('.js-home');
+
+  dashBoardButton?.addEventListener('click', async (event) => {
+    history.pushState({page : "Dashboard"}, "Dashboard", '/dashboard');
+    document.title = 'Dashboard';
+    console.log(event.page);
+    router();
+  });
+
+  profileButton?.addEventListener('click', async () => {
+    history.pushState(null, "Profile", '/profile');
+    router();
+  });
+
+  homeButton?.addEventListener('click', async () => {
+    history.pushState(null, "Home", '/');
+    router();
+  });
+}
+
+function renderIndexPage() {
+  app.innerHTML = `
+    <section class="login">
+      <h1>
+        Open Authentication
+      </h1>
+      <button class="backend-button js-fetch-button">
+        Login with Google
+      </button>
+    </section>
+  `;
+
+  const fetchButton = document.querySelector('.js-fetch-button');
+  fetchButton?.addEventListener('click', async () => {
+    window.location.href = 'http://localhost:3500/auth/google';
+  });
 
 }
 
@@ -105,9 +124,9 @@ async function router() {
   route('/dashboard/repos', renderRepos);
   route('/dashboard/repos/pulls', renderPulls);
   route('/profile', renderProfile);
-  route('/index.html', renderHome);
-  route('/index', renderHome);
-  route('/', renderHome);
+  route('/index.html', renderIndexPage);
+  route('/index', renderIndexPage);
+  route('/', renderIndexPage);
   console.log(routeExists);
   if(routeExists < 1){
     renderNotFound();
@@ -116,22 +135,6 @@ async function router() {
   
 }
 
-dashBoardButton.addEventListener('click', async (event) => {
-  history.pushState({page : "Dashboard"}, "Dashboard", '/dashboard');
-  document.title = 'Dashboard';
-  console.log(event.page);
-  router();
-});
-
-profileButton.addEventListener('click', async () => {
-  history.pushState(null, "Profile", '/profile');
-  router();
-});
-
-homeButton.addEventListener('click', async () => {
-  history.pushState(null, "Home", '/');
-  router();
-});
 
 function renderNotFound() {
   app.innerHTML = `
@@ -178,7 +181,7 @@ function renderHome() {
     </section>
   `;
   const fetchButton = document.querySelector('.js-fetch-button');
-  fetchButton.addEventListener('click', async () => {
+  fetchButton?.addEventListener('click', async () => {
     window.location.href = 'http://localhost:3500/auth/google';
   });
 }
