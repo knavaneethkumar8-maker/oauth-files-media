@@ -1,4 +1,4 @@
-import { route, matched, routeExists } from "./urlParams.js";
+import { route, matched, routeExists, setExistsToZero } from "./urlParams.js";
 
 const body = document.querySelector('.js-body');
 const app = document.querySelector('.js-app');
@@ -9,7 +9,6 @@ console.log(app);
 const dashBoardButton = document.querySelector('.js-dashboard');
 const profileButton = document.querySelector('.js-profile-button');
 const homeButton = document.querySelector('.js-home');
-
 
 
 export function renderDashboard() {
@@ -62,45 +61,60 @@ async function renderUserProfile () {
   }
 }
 
+function renderIndexPage() {
+  body.innerHTML = `
+  <header>
+    <nav>
+      <button href="/profile" class="js-profile-button">
+        Profile
+      </button>
+      <button href="/dashboard" class="js-dashboard">
+        Dashboard
+      </button>
+      <button href="/home" class="js-home">
+        Home
+      </button>
+    </nav>
+  </header>
 
-async function router( ) {
-  const path = window.location.pathname;
-  const url = new URL(location.href);
-  const userId = url.searchParams.get('userId');
-  console.log(path);
+  <main class="js-app">
+    <section class="login">
+      <h1>
+        Online Authentication
+      </h1>
+      <button class="backend-button js-fetch-button">
+        Login with Google
+      </button>
+    </section>
 
-  route('/:userId/profile', renderUserProfile);
-  if(routeExists){
-    console.log(matched.pathname.groups);
-    return;
-  }
+  </main>
+  `;
 
-  route('/dashboard', renderDashboard);
-  if(routeExists) return;
+  const dashBoardButton = document.querySelector('.js-dashboard');
+  const profileButton = document.querySelector('.js-profile-button');
+  const homeButton = document.querySelector('.js-home');
 
-  route('/dashboard/repos', renderRepos);
-  if(routeExists) return;
-
-  route('/dashboard/repos/pulls', renderPulls);
-  if(routeExists) return;
-
-  route('/profile', renderProfile);
-  if(routeExists) return;
-
-  route('/index.html', renderHome);
-  if(routeExists) return;
-
-  route('/index', renderHome);
-  if(routeExists) return;
-
-  route('/', renderHome);
-  if(routeExists) return;
-
-  renderNotFound();
 }
 
-window.addEventListener('popstate', router);
-
+async function router() {
+  const path = window.location.pathname;
+  console.log(path);
+  setExistsToZero();
+  route('/dashboard', renderDashboard);
+  route('/:userId/profile', renderUserProfile);
+  route('/dashboard/repos', renderRepos);
+  route('/dashboard/repos/pulls', renderPulls);
+  route('/profile', renderProfile);
+  route('/index.html', renderHome);
+  route('/index', renderHome);
+  route('/', renderHome);
+  console.log(routeExists);
+  if(routeExists < 1){
+    renderNotFound();
+    return;
+  }
+  
+}
 
 dashBoardButton.addEventListener('click', async (event) => {
   history.pushState({page : "Dashboard"}, "Dashboard", '/dashboard');
@@ -118,9 +132,6 @@ homeButton.addEventListener('click', async () => {
   history.pushState(null, "Home", '/');
   router();
 });
-
-
-
 
 function renderNotFound() {
   app.innerHTML = `
@@ -155,7 +166,6 @@ function renderPulls() {
   `;
 }
 
-
 function renderHome() {
   app.innerHTML = `
   <section class="login">
@@ -172,3 +182,6 @@ function renderHome() {
     window.location.href = 'http://localhost:3500/auth/google';
   });
 }
+
+
+window.addEventListener('popstate', router);

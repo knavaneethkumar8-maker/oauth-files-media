@@ -5,7 +5,11 @@
 // console.log(match2.pathname.groups.userId);
 
 export let matched;
-export let routeExists = false;
+export let routeExists = 0;
+
+export function setExistsToZero() {
+  routeExists = 0;
+}
 
 export function route(url, handler) {
   const pattern = new URLPattern({pathname : `${url}`});
@@ -13,16 +17,17 @@ export function route(url, handler) {
   const urlPath = window.location.pathname;
   //console.log(urlPath);
   matched= pattern.exec({pathname : urlPath});
+  console.log(matched);
   
   if(matched) {
     console.log(matched.pathname.groups.userId);
     console.log('matched');
     handler();
-    routeExists = true;
+    routeExists++;
     return true;
   } else {
     console.log('not matched');
-    routeExists = false;
+    //routeExists = false;
     return false;
   } 
   
