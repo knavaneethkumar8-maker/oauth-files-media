@@ -1,0 +1,107 @@
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+  background-color: rgb(236, 236, 236);
+  border-radius: 14px;
+
+  padding: 10px;
+}
+
+.upload-form button {
+  padding: 8px 24px;
+  color: rgb(227, 227, 227);
+}
+
+.file-input {
+  font-size: 14px;
+}
+
+.file-preview-container {
+  background-color: lightblue;
+
+  display: flex;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+
+
+.image-preview-container {
+  display: flex;
+  position: relative;
+  width: 50px;
+}
+
+.image-preview {
+  background-color: lightcoral;
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+
+  object-fit: cover;
+
+  cursor: pointer;
+}
+
+.close-image-preview {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  padding: 2px 7px 4px 7px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: opacity 0.15s;
+}
+
+.close-image-preview:hover {
+  opacity: 0.9;
+}
+
+.files-app {
+  position: relative;
+  background-color: blue;
+}
+
+.upload-section {
+  background-color: rgb(196, 196, 196);
+}
+
+
+.image-fullview-modal {
+  background-color: rgba(0, 0, 0, 0.745);
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 10;
+}
+
+
+.close-image-button {
+  color: rgb(53, 53, 53);
+  background-color: white;
+  font-size: 20px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+
+.image-fullview-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-fullview {
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+}

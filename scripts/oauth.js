@@ -135,7 +135,6 @@ async function router() {
   
 }
 
-
 function renderNotFound() {
   app.innerHTML = `
   <h1>404 Not found</h1>

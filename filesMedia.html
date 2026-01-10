@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Files</title>
+  <link rel="stylesheet" href="/styles/general.css">
+  <link rel="stylesheet" href="/styles/fileUpload.css">
+</head>
+<body>
+  <main class="files-app">
+    <section class="upload-section">
+      <h1>
+        Files
+      </h1>
+      <div class="js-file-preview-container file-preview-container">
+        <!-- <div class="image-preview-container js-image-preview-container">
+          <button class="close-image-preview js-remove-file">
+            x
+          </button>
+          <img src="" alt="" class="js-image-preview image-preview">
+        </div> -->
+      </div>
+      
+      <form action="" enctype="multipart/form-data" class="upload-form js-upload-form">
+        <button type="submit" class="js-sendfile-button">Send</button>
+        <input type="file" hidden multiple class="js-file-input file-input">
+      </form>
+      <button class="js-upload-files-button">Upload Files</button>
+    </section>
+  </main>
+
+  <div class="image-fullview-modal js-image-fullview-modal">
+    <button class="close-image-button js-close-image-button">
+      close
+    </button>
+    <div class="image-fullview-container js-image-fullview-container">
+      <img src="" alt="" class="image-fullview js-image-fullview">
+    </div>
+  </div>
+  
+
+
+  <script src="/scripts/fileUpload.js"></script>
+  
+</body>
+</html>
