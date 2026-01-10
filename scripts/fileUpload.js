@@ -35,7 +35,6 @@ function renderPreviewImages(fileInput) {
   setRemoveFile(fileInput);
 }
 
-
 function createNewImagePreview(imgURL, index) {
   //console.log(previewContainer);
   imgHTML = `
@@ -115,3 +114,44 @@ const imageFullView = document.querySelector('.js-image-fullview');
 closeImage?.addEventListener('click', () => {
   fullViewModal.style.display = 'none';
 });
+
+
+const form = document.querySelector('.js-upload-form');
+const uploadAllButton = document.querySelector('.js-upload-all-files-button');
+
+function sendData() {
+  form?.addEventListener('submit', async (e)=> {
+    console.log(form);
+    e.preventDefault();
+    console.log('clicked send data transfer');
+
+    const formData = new FormData(form);
+    console.log(formData);
+
+    const res = await fetch('http://localhost:3500/upload', {
+      method : 'POST',
+      body : formData,
+      credentials : 'include'
+    });
+
+    console.log('uploaded data');
+  });
+
+  uploadAllButton?.addEventListener('click', async(e)=> {
+    e.preventDefault();
+    const allFormData = new FormData();
+    const formData = new FormData(form);
+    formData?.forEach(file => allFormData.append('images', file));
+    uploadedFiles?.forEach(file => allFormData.append('files', file));
+    console.log([...allFormData.entries()]);
+    const response = await fetch('http://localhost:3500/upload', {
+      method : 'POST',
+      body : allFormData,
+      credentials : 'include'
+    });
+    console.log('uploaded all files');
+  })
+
+};
+
+sendData();
