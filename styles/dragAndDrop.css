@@ -1,0 +1,28 @@
+#drop-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 400;
+  
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  background-color: rgb(227, 228, 229);
+  border: 1px solid rgb(191, 191, 191);
+  border-radius: 20px;
+  cursor: pointer;
+
+  width: 700px;
+  height: 200px;
+  color: rgb(84, 84, 84);
+}
+
+
+#drop-zone.dragover {
+  background-color: rgb(190, 205, 236);
+  border-color: rgb(94, 124, 195);
+  border-width: 2px;
+}

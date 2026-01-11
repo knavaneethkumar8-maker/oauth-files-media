@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 10px;
   width: fit-content;
-  background-color: rgb(236, 236, 236);
+  background-color: rgb(255, 255, 255);
   border-radius: 14px;
 
   padding: 10px;
@@ -60,11 +60,12 @@
 
 .files-app {
   position: relative;
-  background-color: blue;
+
 }
 
 .upload-section {
-  background-color: rgb(196, 196, 196);
+  background-color: rgb(240, 240, 240);
+  padding: 20px;
 }
 
 
