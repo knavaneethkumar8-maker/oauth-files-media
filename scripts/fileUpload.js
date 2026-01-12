@@ -40,7 +40,7 @@ function renderPreviewImages(fileInput) {
 
 function createNewImagePreview(imgURL, index) {
   //console.log(previewContainer);
-  imgHTML = `
+  const imgHTML = `
   <div class="image-preview-container js-image-preview-container" data-index="${index}">
     <button class="close-image-preview js-remove-file">
       x
