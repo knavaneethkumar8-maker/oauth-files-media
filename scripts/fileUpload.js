@@ -1,7 +1,6 @@
 import './dragnDrop.js';
+import './download.js'
 
-
-console.log('file upload script test');
 
 const previewContainer = document.querySelector('.js-file-preview-container');
 const imgPreview = document.querySelector('.js-image-preview');

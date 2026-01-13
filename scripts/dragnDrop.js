@@ -1,5 +1,3 @@
-console.log('drap n drop test');
-
 const dropZone = document.getElementById('drop-zone');
 const newFileInput = document.getElementById('js-new-file-input');
 const fileList = document.getElementById('js-file-list');
@@ -15,7 +13,6 @@ dropZone.addEventListener('dragover', () => {
 });
 
 dropZone.addEventListener('dragleave', () => {
-  console.log('drag leave the drap zone');
   dropZone.classList.remove('dragover');
 });
 
@@ -111,10 +108,8 @@ function renderFileList(file) {
 
 
 const sendFilesButton = document.querySelector('.js-send-dropped-files');
-console.log(sendFilesButton);
 
 function sendDroppedFiles() {
-  console.log('send files function');
   sendFilesButton?.addEventListener('click', async (e)=> {
     e.preventDefault();
     console.log('clicked send dropped files');
